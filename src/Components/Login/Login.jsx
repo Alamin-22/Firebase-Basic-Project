@@ -1,8 +1,10 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Provider/UserProvider";
 
 const Login = () => {
 
-
+    const { singInUser } = useContext(AuthContext);
 
 
     const handleSubmit = e => {
@@ -10,7 +12,14 @@ const Login = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
         console.log(email, password);
-        // console.log("Does it workd")
+        // LogIn User
+        singInUser(email, password)
+            .then(response => {
+                console.log(response.user);
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
 
 
@@ -92,7 +101,7 @@ const Login = () => {
                 </form>
                 <div className="p-6 pt-0">
                     <p className="mt-6 flex justify-center font-sans text-sm font-light leading-normal text-inherit antialiased">
-                        Don't have an account?
+                        Don`t have an account?
                         <Link
                             to={"/register"}
                             className="ml-1 block font-sans text-sm font-bold leading-normal text-pink-500 antialiased"

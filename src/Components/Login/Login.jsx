@@ -1,10 +1,11 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/UserProvider";
 
 const Login = () => {
 
     const { singInUser } = useContext(AuthContext);
+    const navigate = useNavigate();
 
 
     const handleSubmit = e => {
@@ -16,6 +17,8 @@ const Login = () => {
         singInUser(email, password)
             .then(response => {
                 console.log(response.user);
+                e.target.reset();
+                navigate("/")
             })
             .catch(error => {
                 console.log(error);
